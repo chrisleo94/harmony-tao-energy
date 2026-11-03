@@ -89,7 +89,7 @@
 ### 1. 获取代码
 
 ```powershell
-git clone https://github.com/894777390/harmony-tao-energy.git
+git clone https://github.com/chrisleo94/harmony-tao-energy.git
 cd harmony-tao-energy
 ```
 
@@ -235,7 +235,7 @@ test/               离线测试及文字坐标夹具
 
 ## 反馈与贡献
 
-欢迎通过 [Issues](https://github.com/894777390/harmony-tao-energy/issues) 反馈页面适配问题，建议附上系统版本、淘宝版本、复现步骤及相关日志。分享截图和控件树前，请先隐藏账号、设备编号及其他个人信息。
+欢迎通过 [Issues](https://github.com/chrisleo94/harmony-tao-energy/issues) 反馈页面适配问题，建议附上系统版本、淘宝版本、复现步骤及相关日志。分享截图和控件树前，请先隐藏账号、设备编号及其他个人信息。
 
 调整识别规则时，建议同时补充不含个人信息的文字坐标夹具和回归测试。
 
