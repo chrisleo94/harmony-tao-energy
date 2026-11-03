@@ -1,6 +1,6 @@
 {
   "name": "harmony-tao-energy",
-  "description": "通过 USB/HDC 与本地 OCR 自动执行鸿蒙淘宝淘金币商品浏览任务的 Windows 工具",
+  "description": "面向2026年双十一淘宝淘金币赚能量活动，通过USB/HDC与本地OCR执行鸿蒙手机15秒商品浏览任务的Windows工具",
   "version": "0.3.0",
   "private": true,
   "type": "module",
