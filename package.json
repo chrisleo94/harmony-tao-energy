@@ -1,0 +1,12 @@
+{
+  "name": "harmony-tao-energy",
+  "description": "通过 USB/HDC 与本地 OCR 自动执行鸿蒙淘宝淘金币商品浏览任务的 Windows 工具",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "repository": { "type": "git", "url": "https://github.com/894777390/harmony-tao-energy.git" },
+  "bugs": { "url": "https://github.com/894777390/harmony-tao-energy/issues" },
+  "license": "UNLICENSED",
+  "scripts": { "start": "node src/server.mjs", "test": "node --test" },
+  "engines": { "node": ">=22" }
+}

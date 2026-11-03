@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>淘金币 · USB 浏览助手</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f5f2;color:#232421;font:15px/1.6 "Microsoft YaHei",sans-serif}main{max-width:1080px;margin:40px auto;padding:0 24px}h1{font-size:30px;letter-spacing:-1px;margin:8px 0}p{color:#60645d}.tag{color:#a6530e;font-size:13px;letter-spacing:2px}.grid{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;margin-top:28px}.card{background:white;padding:26px;border:1px solid #e4e6df;border-radius:16px}label{display:block;margin:16px 0 6px}input{width:100%;padding:10px;border:1px solid #d8dbd2;border-radius:7px;font:inherit}button{padding:12px 18px;border:0;border-radius:8px;font:inherit;font-weight:600;cursor:pointer;background:#e8ece3;color:#26332a;margin:10px 8px 0 0}button.primary{background:#eb6c20;color:white}button.stop{background:#342e2a;color:white}button:disabled{opacity:.4;cursor:default}.status{background:#f4f6ef;border-radius:10px;padding:18px;margin-top:22px}#message{font-weight:600}#logs{max-height:240px;overflow:auto;font:13px/1.8 Consolas,"Microsoft YaHei",monospace;white-space:pre-wrap;overflow-wrap:anywhere}details{margin-top:18px}pre{font-size:12px;white-space:pre-wrap;max-height:200px;overflow:auto}#screen{max-height:520px;max-width:100%;object-fit:contain;border-radius:12px}.preview{text-align:center}.muted{font-size:12px;color:#7b8076}.count{font-size:34px;font-weight:700}ol{padding-left:24px}a{color:#a6530e}@media(max-width:720px){.grid{grid-template-columns:1fr}main{margin:20px auto}}
+</style>
+<main><div class="tag">HARMONYOS · USB</div><h1>淘金币浏览助手</h1><p>自动滑动浏览，每项完成后返回淘金币首页，再进入赚能量任务列表。</p>
+<div class="grid"><section class="card"><strong>开始前</strong><ol><li>USB 连接手机，开启 USB 调试并允许电脑调试。</li><li>解锁手机并打开淘宝，建议停在“做任务赚能量”列表。</li><li>先点“检测连接”，确认预览正确，再点“开始”。</li></ol>
+<label for="maxTasks">本轮最多完成任务数</label><input id="maxTasks" type="number" min="1" max="100" value="40">
+<label for="maxMinutes">最长运行时间（分钟）</label><input id="maxMinutes" type="number" min="1" max="120" value="30">
+<button id="probe">检测连接</button><button id="start" class="primary">开始</button><button id="stop" class="stop" disabled>停止</button>
+<div class="status"><div id="message">正在连接本机工具…</div><span class="count" id="done">0</span> 项已识别完成<div id="page" class="muted"></div></div>
+<p class="muted">只处理“浏览15秒”任务。遇到登录、验证、超时或无法识别的页面会停止。完成与否以淘宝页面提示为准。</p>
+<details><summary>运行日志</summary><div id="logs"></div></details><details><summary>识别文字（排查用）</summary><pre id="text"></pre><div id="hdc" class="muted"></div></details>
+</section><section class="card preview"><strong>手机画面</strong><p class="muted">检测或运行时更新 · 截图仅保存在本机</p><img id="screen" hidden alt="手机当前截图"><p id="placeholder">连接后显示预览</p></section></div></main>
+<script>
+const $=id=>document.getElementById(id);let lastAt=0, pending=false;
+const pages={home:'淘宝首页',energy:'淘金币首页',tasks:'任务列表',search:'搜索发现商品',browse:'正在浏览',complete:'浏览完成',inactive:'浏览任务已结束',blocked:'需要人工处理',unknown:'未识别'};
+async function command(action){pending=true;try{const body={maxTasks:Number($('maxTasks').value),maxMinutes:Number($('maxMinutes').value)};const r=await fetch('/api/'+action,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const d=await r.json();if(!r.ok)alert(d.error);}catch(e){alert(e.message)}finally{pending=false;await refresh()}}
+for(const name of ['probe','start','stop'])$(name).onclick=()=>command(name);
+async function refresh(){try{const s=await(await fetch('/api/state')).json();$('message').textContent=s.message;$('done').textContent=s.done;$('page').textContent=pages[s.page]||'尚未检测';$('probe').disabled=s.running||s.busy||pending;$('start').disabled=s.running||s.busy||pending;$('stop').disabled=!s.running;$('logs').textContent=s.logs.map(x=>x.time+' '+x.message).join('\n');$('hdc').textContent=s.hdc;if(s.snapshot){$('text').textContent=s.snapshot.text;if(lastAt!==s.snapshot.at){lastAt=s.snapshot.at;$('screen').src='/screen.png?t='+lastAt;$('screen').hidden=false;$('placeholder').hidden=true}}}catch{$('message').textContent='本机工具未连接，请运行启动工具.cmd'}}
+refresh();setInterval(refresh,1200);
+</script></html>
