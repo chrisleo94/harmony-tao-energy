@@ -6,6 +6,10 @@
 
 无需安装额外手机 App，无需修改淘宝，也无需配置云端 OCR 或 API Key。
 
+**下载 v0.3.0：[ZIP 压缩包](https://github.com/chrisleo94/harmony-tao-energy/releases/download/v0.3.0/harmony-tao-energy-v0.3.0.zip) · [发布说明](https://github.com/chrisleo94/harmony-tao-energy/releases/tag/v0.3.0)**
+
+解压后按下方教程配置 Node.js 和 HDC，再运行「启动工具.cmd」。下载包不包含 Node.js、HDC，也不是手机安装包。
+
 > **非官方项目 · 禁止商业用途。** 本仓库仅供个人在法律和平台规则允许的范围内进行非商业学习、研究与操作测试。使用前请阅读[使用限制与免责声明](DISCLAIMER.md)。免责声明不能保证账号安全，也不能豁免违反法律或平台规则的责任。
 
 > 当前版本 **0.3.0**，仍在适配阶段。20 项离线测试已通过，最新返回首页流程仍需更多真机连续运行反馈。淘宝页面改版、设备差异或网络弹窗可能导致识别停止。
